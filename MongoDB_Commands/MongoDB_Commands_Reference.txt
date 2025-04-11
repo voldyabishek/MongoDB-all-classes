@@ -1,0 +1,132 @@
+
+=========================
+📘 MONGO DB COMMANDS LIST
+=========================
+
+🔹 STARTING MONGODB
+-------------------
+Start MongoDB Server (Terminal)
+> mongod
+
+Connect to MongoDB Shell
+> mongo
+
+🔹 DATABASE COMMANDS
+--------------------
+Show all databases:
+> show dbs
+
+Create or switch database:
+> use myDatabase
+
+Check current database:
+> db
+
+Delete a database:
+> db.dropDatabase()
+
+🔹 COLLECTION COMMANDS
+----------------------
+Show collections:
+> show collections
+
+Create collection:
+> db.createCollection("students")
+
+Drop collection:
+> db.students.drop()
+
+🔹 INSERT DOCUMENTS
+-------------------
+Insert one document:
+> db.students.insertOne({ name: "Alice", age: 22 })
+
+Insert many documents:
+> db.students.insertMany([{ name: "Bob", age: 24 }, { name: "Carol", age: 23 }])
+
+🔹 FIND DOCUMENTS
+-----------------
+Find all:
+> db.students.find()
+
+Find with condition:
+> db.students.find({ age: 22 })
+
+Find with projection (show only name):
+> db.students.find({}, { name: 1 })
+
+🔹 UPDATE DOCUMENTS
+-------------------
+Update one:
+> db.students.updateOne({ name: "Alice" }, { $set: { age: 23 } })
+
+Update many:
+> db.students.updateMany({ age: 23 }, { $set: { status: "updated" } })
+
+🔹 DELETE DOCUMENTS
+-------------------
+Delete one:
+> db.students.deleteOne({ name: "Bob" })
+
+Delete many:
+> db.students.deleteMany({ age: { $gt: 23 } })
+
+🔹 QUERY OPERATORS
+------------------
+Greater than:
+> db.students.find({ age: { $gt: 20 } })
+
+Less than or equal:
+> db.students.find({ age: { $lte: 25 } })
+
+And condition:
+> db.students.find({ $and: [ { age: 22 }, { name: "Alice" } ] })
+
+Or condition:
+> db.students.find({ $or: [ { age: 22 }, { name: "Carol" } ] })
+
+🔹 SORT, LIMIT, COUNT
+---------------------
+Sort ascending:
+> db.students.find().sort({ age: 1 })
+
+Sort descending:
+> db.students.find().sort({ age: -1 })
+
+Limit results:
+> db.students.find().limit(2)
+
+Count documents:
+> db.students.countDocuments()
+
+🔹 AGGREGATION
+--------------
+Group by age:
+> db.students.aggregate([ { $group: { _id: "$age", count: { $sum: 1 } } } ])
+
+🔹 INDEXES
+----------
+Create index:
+> db.students.createIndex({ name: 1 })
+
+Drop index:
+> db.students.dropIndex({ name: 1 })
+
+Show indexes:
+> db.students.getIndexes()
+
+🔹 BACKUP AND RESTORE
+---------------------
+Backup database:
+> mongodump --db myDatabase
+
+Restore database:
+> mongorestore --db myDatabase dump/myDatabase
+
+🔹 USER MANAGEMENT
+------------------
+Create user:
+> db.createUser({ user: "admin", pwd: "pass123", roles: ["readWrite", "dbAdmin"] })
+
+Authenticate user:
+> db.auth("admin", "pass123")
